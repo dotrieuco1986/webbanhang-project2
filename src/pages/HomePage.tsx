@@ -23,9 +23,9 @@ const HomePage = () => {
   useEffect(() => {
     axios.get("https://jsonblob.com/api/948153349182865408").then((res) => {
       setProducts(res.data);
-      // dispatch(setProductSlice(products));
+      dispatch(setProductSlice(products));
     });
-  }, []);
+  }, [dispatch, products]);
 
   const convertToMoney = (price: number) => {
     return price.toLocaleString("en", {

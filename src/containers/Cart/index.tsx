@@ -6,29 +6,6 @@ import { RootState } from "../../redux/store";
 
 const Cart: FC = () => {
   const products = useSelector((state: RootState) => state.cart.products);
-  console.log(products);
-
-  // const handleDelete = useCallback(
-  //   ((product: Product) => () => {
-  //     dispatch({
-  //       type: "REMOVE_CART",
-  //       payload: product,
-  //     });
-  //   },
-  //   [dispatch])
-  // );
-
-  // const handleChange = useCallback(
-  //   (product: Product) => (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     product.quantity = parseInt(e.target.value);
-  //     dispatch({
-  //       type: "CHANGE_QUANTITY_CART",
-  //       payload: product,
-  //     });
-  //   },
-  //   [dispatch]
-  // );
-
   const convertToMoney = useCallback((price: number) => {
     return price.toLocaleString("en", {
       style: "currency",
