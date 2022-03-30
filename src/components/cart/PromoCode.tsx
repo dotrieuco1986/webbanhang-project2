@@ -1,6 +1,7 @@
-import React, { SetStateAction, memo } from "react";
+import React, { SetStateAction, memo, useEffect } from "react";
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPromotion } from "../../redux/PromoCodeSlice";
 import { RootState } from "../../redux/store";
 
 interface Code {
@@ -16,7 +17,15 @@ const PromoCode = ({
   code: Code;
   setCode: React.Dispatch<SetStateAction<Code>>;
 }) => {
+  const dispatch = useDispatch();
   const promoCode = useSelector((state: RootState) => state.promoCode);
+
+  useEffect(() => {
+    if (promoCode.promoCode.length === 0) {
+      dispatch(fetchPromotion());
+    }
+  }, []);
+
   const handleChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };

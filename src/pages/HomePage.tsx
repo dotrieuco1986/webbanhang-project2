@@ -1,14 +1,14 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ListProducts from "../components/home/ListProducts";
 import ModalProductInfo from "../components/home/ModalProductInfo";
 import Product from "../models/Product";
-import { setProductSlice } from "../redux/ProductSlice";
+import { fetchProduct } from "../redux/ProductSlice";
+import { RootState } from "../redux/store";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState([]);
+  const products = useSelector((state: RootState) => state.product.products);
   const [product, setProduct] = useState<Product>({
     id: 0,
     title: "",
@@ -21,11 +21,8 @@ const HomePage = () => {
   const [isShowModalInfo, setIsShowModalInfo] = useState(false);
 
   useEffect(() => {
-    axios.get("https://jsonblob.com/api/948153349182865408").then((res) => {
-      setProducts(res.data);
-      dispatch(setProductSlice(products));
-    });
-  }, [dispatch, products]);
+    dispatch(fetchProduct());
+  }, [dispatch]);
 
   const convertToMoney = (price: number) => {
     return price.toLocaleString("en", {

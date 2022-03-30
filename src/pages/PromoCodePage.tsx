@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Card,
@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addPromoCode, removePromoCode } from "../redux/PromoCodeSlice";
+import { fetchPromotion } from "../redux/PromoCodeSlice";
 import { RootState } from "../redux/store";
 
 const PromoCode = () => {
@@ -20,6 +21,10 @@ const PromoCode = () => {
     value: 0,
     type: "percent",
   });
+
+  useEffect(() => {
+    dispatch(fetchPromotion());
+  }, [dispatch]);
 
   const handleChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.currentTarget;

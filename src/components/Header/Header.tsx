@@ -14,14 +14,6 @@ const Header = () => {
           <Nav className="me-auto">
             <NavLink
               className="mx-2"
-              to="/"
-              style={{ color: "gray", textDecoration: "none" }}
-            >
-              Home
-            </NavLink>
-
-            <NavLink
-              className="mx-2"
               to="/post"
               style={{ color: "gray", textDecoration: "none" }}
             >
