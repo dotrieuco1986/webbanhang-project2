@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import Post from "../models/Post";
 
 interface PostState {
-  posts?: Post[];
+  posts: Post[];
 }
 
 const initialState: PostState = {
@@ -55,8 +55,11 @@ const postSlice = createSlice({
     setPostSlice: (state, action) => {
       state.posts = action.payload;
     },
+    addPostSlice: (state, action) => {
+      state.posts = [...state.posts, action.payload];
+    },
   },
 });
 
-export const { setPostSlice } = postSlice.actions;
+export const { setPostSlice, addPostSlice } = postSlice.actions;
 export default postSlice.reducer;

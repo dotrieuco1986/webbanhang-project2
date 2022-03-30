@@ -5,6 +5,7 @@ const Home = React.lazy(() => import("../pages/HomePage"));
 const Cart = React.lazy(() => import("../pages/CartPage"));
 const PromoCode = React.lazy(() => import("../pages/PromoCodePage"));
 const Post = React.lazy(() => import("../pages/PostPage"));
+const PostDetail = React.lazy(() => import("../pages/PostDetailPage"));
 
 const Router = () => {
   return (
@@ -14,6 +15,7 @@ const Router = () => {
         <Route path="cart" element={<Cart />} />
         <Route path="code" element={<PromoCode />} />
         <Route path="post" element={<Post />} />
+        <Route path="post/:category/:slug" element={<PostDetail />} />
       </Routes>
     </React.Suspense>
   );
