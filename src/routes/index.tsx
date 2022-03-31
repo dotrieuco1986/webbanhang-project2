@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Route, Routes } from "react-router-dom";
+import Loading from "../components/Common/Loading";
 
 const Home = React.lazy(() => import("../pages/HomePage"));
 const Cart = React.lazy(() => import("../pages/CartPage"));
@@ -9,7 +10,7 @@ const PostDetail = React.lazy(() => import("../pages/PostDetailPage"));
 
 const Router = () => {
   return (
-    <React.Suspense fallback={null}>
+    <React.Suspense fallback={<Loading></Loading>}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="cart" element={<Cart />} />

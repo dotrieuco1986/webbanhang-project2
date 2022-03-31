@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 import { addPostSlice } from "../../redux/PostSlice";
@@ -20,8 +20,8 @@ interface Props {
 const AddReview = ({ onHide, isAdd }: Props) => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.product.products);
-
-  const [form, setForm] = useState({
+  const posts = useSelector((state: RootState) => state.post.posts);
+  const data = {
     id: 0,
     productName: "",
     product: "",
@@ -29,16 +29,28 @@ const AddReview = ({ onHide, isAdd }: Props) => {
     category: "",
     content: "",
     tags: "",
-  });
+  };
+  const [form, setForm] = useState(data);
+
+  useEffect(() => {
+    if (products && products?.length > 0) {
+      setForm({
+        ...form,
+        id: products[0].id,
+        category: products[0].category,
+      });
+    }
+  }, [products]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const max = products?.reduce(function (prev, current) {
+    const max = posts?.reduce(function (prev, current) {
       return prev.id > current.id ? prev : current;
     });
+    let newId = Number(max.id) + 1;
     setForm({
       ...form,
-      id: max ? max.id : 0,
+      id: max ? newId : 0,
     });
     dispatch(addPostSlice(form));
     onHide();
@@ -48,17 +60,14 @@ const AddReview = ({ onHide, isAdd }: Props) => {
     const { name, value } = e.currentTarget;
     setForm({
       ...form,
-      [name]: value,
     });
   };
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.currentTarget;
-
     const product = products?.find((p) => p.id === parseInt(value));
     setForm({
       ...form,
-      [name]: value,
       category: product ? product?.category : "",
       productName: product ? product?.title : "",
     });
@@ -100,12 +109,7 @@ const AddReview = ({ onHide, isAdd }: Props) => {
             </InputGroup>
             <InputGroup className="mb-3" as={Col}>
               <InputGroup.Text>Product</InputGroup.Text>
-              <FormSelect
-                onChange={handleSelect}
-                name="product"
-                value={form.product}
-                placeholder="Select Product"
-              >
+              <FormSelect onChange={handleSelect} placeholder="Select Product">
                 {products?.length === 0 ? <option>...</option> : null}
                 {products?.map((product) => (
                   <option key={product.id} value={product.id}>

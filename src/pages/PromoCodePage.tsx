@@ -1,30 +1,17 @@
 import React, { useEffect } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  FormSelect,
-  ListGroup,
-  Row,
-} from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { Button, Card, Col, Container, FormSelect, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import ListPromotions from "../components/Promotion/ListPromotions";
 import { addPromoCode, removePromoCode } from "../redux/PromoCodeSlice";
 import { fetchPromotion } from "../redux/PromoCodeSlice";
-import { RootState } from "../redux/store";
 
 const PromoCode = () => {
-  const promoCode = useSelector((state: RootState) => state.promoCode);
   const dispatch = useDispatch();
   const [code, setCode] = React.useState({
     code: "",
     value: 0,
     type: "percent",
   });
-
-  useEffect(() => {
-    dispatch(fetchPromotion());
-  }, [dispatch]);
 
   const handleChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.currentTarget;
@@ -96,32 +83,7 @@ const PromoCode = () => {
               </Card>
             </Col>
             <Col xs={7}>
-              <Card>
-                <Card.Body>
-                  <ListGroup variant="flush">
-                    {promoCode.promoCode.map((item, index) => (
-                      <ListGroup.Item key={index} className="fw-bold">
-                        Code: <span className="text-danger"> {item.code} </span>
-                        - Discount:{" "}
-                        <span className="text-primary">
-                          {item.value}
-                          {item.type === "percent" || item.type === ""
-                            ? "%"
-                            : "$"}
-                        </span>
-                        <Button
-                          onClick={handleRemoveCode(item.code)}
-                          variant="danger"
-                          className="float-right"
-                          size="sm"
-                        >
-                          Remove
-                        </Button>
-                      </ListGroup.Item>
-                    ))}
-                  </ListGroup>
-                </Card.Body>
-              </Card>
+              <ListPromotions showRemoveButton={true} />
             </Col>
           </Row>
         </Card.Body>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "../components/Common/Loading";
 import ListProducts from "../components/home/ListProducts";
 import ModalProductInfo from "../components/home/ModalProductInfo";
 import Product from "../models/Product";
@@ -21,7 +22,9 @@ const HomePage = () => {
   const [isShowModalInfo, setIsShowModalInfo] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchProduct());
+    if (products?.length === 0) {
+      dispatch(fetchProduct());
+    }
   }, [dispatch]);
 
   const convertToMoney = (price: number) => {

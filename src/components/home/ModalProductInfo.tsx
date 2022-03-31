@@ -2,6 +2,7 @@ import { Modal, Alert, ModalBody, Button } from "react-bootstrap";
 import Product from "../../models/Product";
 import { useDispatch } from "react-redux";
 import { addCartSlice } from "../../redux/CartSlice";
+import ListPromotions from "../Promotion/ListPromotions";
 
 interface Props {
   isShowModalInfo: boolean;
@@ -50,6 +51,9 @@ const ModalProductInfo: React.FC<Props> = ({
           >
             Add to cart
           </Button>
+        </div>
+        <div className="mt-5 col-12">
+          <ListPromotions showRemoveButton={false}></ListPromotions>
         </div>
       </ModalBody>
     </Modal>

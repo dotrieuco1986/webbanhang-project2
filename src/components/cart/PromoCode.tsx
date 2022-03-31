@@ -24,7 +24,7 @@ const PromoCode = ({
     if (promoCode.promoCode.length === 0) {
       dispatch(fetchPromotion());
     }
-  }, []);
+  }, [promoCode]);
 
   const handleChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -41,7 +41,7 @@ const PromoCode = ({
     <div>
       <label className="font-weight-bold">Promo code:</label>
       <input
-        className="form-control d-inline w-75"
+        className="form-control d-inline w-50"
         value={input}
         onChange={handleChangeCode}
       />

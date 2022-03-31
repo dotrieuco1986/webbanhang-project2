@@ -2,6 +2,7 @@ import { FC, useContext, memo, useMemo, useState } from "react";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import PromoCode from "./PromoCode";
+import { Link } from "react-router-dom";
 
 interface Props {
   convertToMoney: (price: number) => string;
@@ -42,7 +43,7 @@ const TotalCart: FC<Props> = ({ convertToMoney }) => {
   }, [totalPrice, discountPrice]);
 
   return (
-    <div className="col-lg-3">
+    <div className="col-lg-4">
       <div className="card">
         <div className="card-body">
           <dl className="dlist-align">
@@ -64,12 +65,9 @@ const TotalCart: FC<Props> = ({ convertToMoney }) => {
           <hr />
           <PromoCode code={code} setCode={setCode} />
           <hr />
-          <a
-            href="#/"
-            className="btn btn-out btn-success btn-square btn-main mt-2"
-          >
+          <Link to="/" className="btn btn-primary">
             Continue Shopping
-          </a>
+          </Link>
         </div>
       </div>
     </div>

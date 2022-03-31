@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import Product from "../../models/Product";
 import SkeletonProductCard from "./SkeletonProductCard";
+import { MockProductData } from "../../mockData/Data";
 interface Props {
   products?: Product[];
   setProduct: Dispatch<SetStateAction<Product>>;
@@ -18,7 +19,6 @@ const ListProducts = ({
     setProduct(product);
     handleShowModalInfo();
   };
-
   return (
     <div className="row pt-5 m-3">
       {products && products.length ? (
@@ -53,12 +53,9 @@ const ListProducts = ({
         ))
       ) : (
         <>
-          <SkeletonProductCard />
-          <SkeletonProductCard />
-          <SkeletonProductCard />
-          <SkeletonProductCard />
-          <SkeletonProductCard />
-          <SkeletonProductCard />
+          {MockProductData.map((item) => (
+            <SkeletonProductCard key={item} />
+          ))}
         </>
       )}
     </div>

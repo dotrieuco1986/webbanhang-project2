@@ -20,7 +20,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
-    "typescript": "^4.5.5",
+    "react-webpack": "^0.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -46,5 +46,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.16.7",
+    "create-file-webpack": "^1.0.2",
+    "ts-loader": "^9.2.8",
+    "typescript": "^4.6.3",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
   }
 }

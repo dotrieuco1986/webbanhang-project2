@@ -15,7 +15,7 @@ const Cart: FC = () => {
   return (
     <div className="container-fluid pt-5">
       <div className="row">
-        <div className="col-lg-9">
+        <div className="col-lg-8">
           <div className="card">
             <div className="table-responsive">
               <table className="table table-borderless table-shopping-cart">

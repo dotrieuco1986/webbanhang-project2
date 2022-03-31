@@ -1,15 +1,25 @@
 import { Badge, ListGroup, Placeholder } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { useEffect } from "react";
+import { fetchProduct } from "../../redux/ProductSlice";
+import { fetchPost } from "../../redux/PostSlice";
 
 const ListReview = () => {
+  const dispatch = useDispatch();
   const posts = useSelector((state: RootState) => state.post.posts);
   const products = useSelector((state: RootState) => state.product.products);
   const removeSpecialChar = (str: string) => str.replace(/[^a-zA-Z]/g, "-");
   const getNameProduct = (id: number) =>
     products?.find((p) => p.id === id)?.title;
 
+  useEffect(() => {
+    if (products?.length === 0) {
+      dispatch(fetchProduct());
+    }
+    dispatch(fetchPost());
+  }, [posts]);
   return (
     <ListGroup as="ul">
       {posts?.map((post) => (
@@ -31,7 +41,9 @@ const ListReview = () => {
                 </div>
                 <div className="fs-sm text-truncate">{post.content}</div>
               </div>
-              <Badge>{post.category}</Badge>
+              <Badge>
+                {post.category}-{post.id}
+              </Badge>
             </ListGroup.Item>
           ) : (
             <ListGroup.Item
